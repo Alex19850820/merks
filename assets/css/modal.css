@@ -1,0 +1,201 @@
+.popup__overlay {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
+    text-align: center;
+    z-index: 999999999;
+}
+.popup__overlay:after {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 100%;
+    width: 0;
+    vertical-align: middle;
+    content: ''
+}
+/* Added for IE<9 compatibility */
+.popup__overlay_ie {
+    background: #000;
+    opacity: .7;
+    filter: alpha(opacity=70)
+}
+.popup {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    position: relative;
+    max-width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    /* border:3px solid #ffd97e; */
+    background: #FFFFFF;
+    height: 866px;
+    vertical-align: middle;
+    width: 100%;
+    max-width: 711px;
+    font-family: 'Proxima Nova Rg';
+}
+/* Added instead of :after pseudoelement */
+.popup__valignfix {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 0;
+    height: 100%;
+    vertical-align: middle
+}
+input[type="button"] {
+    padding: 6px 16px;
+    border: 0;
+    /* border-radius: 2px; */
+    cursor: pointer;
+    background: #ff6600;
+    color: #fff
+}
+.popup__close, .tech-form-close {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 26px;
+    height: 26px;
+    /* padding: 3px; */
+    border-radius: 50%;
+    cursor: pointer;
+    /* background: #ffd97e; */
+    text-align: center;
+    font-size: 26px;
+    line-height: 12px;
+    /*color: #fff;*/
+    color: #636363;
+    text-decoration: none;
+    cursor:pointer;
+}
+.popup__close:hover, .tech-form-close:hover {
+    /* background: #bc0b0b; */
+}
+.popup h2 {
+    /* text-transform: uppercase; */
+    /*color: #ffd97e;*/
+    color: #000000;
+    font-weight: 500;
+    font-size: 50px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    /* font-family: Open Sans; */
+}
+.popup p {
+    color: #0c0c0c;
+    font-weight: 700;
+    font-family: Open Sans;
+}
+.popup input {
+    width: 100%;
+    margin: 10px auto;
+    /* border-radius: 8px; */
+    padding: 0 20px;
+    border: 1px solid #E0E7E9;
+    height: 79px;
+    max-width: 477px;
+    background: #FAFAFA;
+    color: #636363;
+    font-family: 'Proxima Nova Rg';
+    font-size: 20px;
+}
+.agree_block {
+    display: block;
+    width: 100%;
+    max-width: 477px;
+    margin: 0 auto;
+    text-align: left;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.agree_block > div > label {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Proxima Nova Rg';
+    color: #000000;
+    display: table-cell;
+    vertical-align: middle;
+    left: 10px;
+    position: relative;
+}
+.agree_block > div {
+    height: 40px;
+    display: table;
+}
+input[type="checkbox"] {
+    appearance: none;
+    position: relative;
+    width: 27px;
+    height: 27px;
+    background: #FFFFFF;
+    /* box-shadow: inset 0 0 5px rgb(0 0 0 / 0.2); */
+    border-radius: 50%;
+    border: 1px solid #E0E7E9;
+    transition: 500ms;
+    z-index: 2;
+}
+input[type="checkbox"]::after {
+    content: '✔';
+    position: absolute;
+    width: 27px; 
+    height: 27px;
+    text-align: center;
+    background: #00CFCC;
+    border-radius: 50%;
+    color: #FFFFFF;
+    margin-left: 0;
+    line-height: 30px;
+    font-family: "Proxima Nova Rg";
+    font-size: 13.5px;
+    z-index: 1;
+}
+.active_checkbox::after {
+    display: none;
+}
+.form-button {
+    display: block;
+    width: 100%;
+    max-width: 477px;
+    margin: 0 auto;
+}
+.form-button > button {
+    width: 100%;
+    background: #FFDD21;
+    box-shadow: 0px 14px 24px 0px rgba(255, 221, 33, 0.4);
+    font-family: "Proxima Nova Rg";
+    font-size: 20px;
+    color: #000000;
+    font-weight: 600;
+    height: 70px;
+    border: none;
+    border-radius: 5px;
+}
+.form_error {
+    color: #FF0000;
+    display: block;
+    margin-top: 20px;
+    font-family: "Proxima Nova Rg";
+    font-size: 20px;
+    font-weight: 600;
+}
+.form_agree_message {
+    color: #008000;
+    display: block;
+    margin-top: 20px;
+    font-family: "Proxima Nova Rg";
+    font-size: 20px;
+    font-weight: 600;
+}
+@media screen and (min-width:200px) and (max-width:1024px) {
+    .popup h2 {
+        font-size: 27px;
+    }
+}
