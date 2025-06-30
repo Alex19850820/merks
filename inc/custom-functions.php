@@ -20,6 +20,14 @@ function sendForm() {
         $email = ($_POST['email'] == 'undefined') ? '' : $_POST['email'];
         $site = ($_POST['site'] == 'undefined') ? '' : $_POST['site'];
         $text = ($_POST['mess'] == 'undefined') ? '' : $_POST['mess'];
+        $percent = ($_POST['percent'] == 'undefined') ? '' : $_POST['percent'];
+        $totalSumm = ($_POST['totalSumm'] == 'undefined') ? '' : $_POST['totalSumm'];
+        $summMinusPersent = ($_POST['summMinusPersent'] == 'undefined') ? '' : $_POST['summMinusPersent'];
+        $tarif = ($_POST['tarif'] == 'undefined') ? '' : $_POST['tarif'];
+        $countFuel = ($_POST['countFuel'] == 'undefined') ? '' : $_POST['countFuel'];
+        $selectedFuel = ($_POST['selectedFuel'] == 'undefined') ? '' : $_POST['selectedFuel'];
+        $brandFuel = ($_POST['brandFuel'] == 'undefined') ? '' : $_POST['brandFuel'];
+        $region = ($_POST['region'] == 'undefined') ? '' : $_POST['region'];
         $message = '<h2>Заявка с '.get_bloginfo('description').' '.get_bloginfo('url').'</h2><br>';
         if($name) {
             $message .= 'Номер ИНН: ' . $name . '<br>';
@@ -35,6 +43,30 @@ function sendForm() {
         }
         if($text) {
             $message .= ($text) ? 'Сообщение: ' . $text . '<br>' : '';
+        }
+        if($percent) {
+            $message .= ($percent) ? 'Скидка: ' . $percent . '% <br>' : '';
+        }
+        if($totalSumm) {
+            $message .= ($totalSumm) ? 'На сумму: ' . $totalSumm . '<br>' : '';
+        }
+        if($summMinusPersent) {
+            $message .= ($summMinusPersent) ? 'Сумма с вычетом скидки: ' . $summMinusPersent . '<br>' : '';
+        }
+        if($tarif) {
+            $message .= ($tarif) ? ' Тариф: ' . $tarif . '<br>' : '';
+        }
+        if($selectedFuel) {
+            $message .= ($selectedFuel) ? 'Вид топлива: ' . $selectedFuel . '<br>' : '';
+        }
+        if($brandFuel) {
+            $message .= ($brandFuel) ? 'Бренд: ' . $brandFuel . '<br>' : '';
+        }
+        if($countFuel) {
+            $message .= ($countFuel) ? 'Количество топлива: ' . $countFuel . '<br>' : '';
+        }
+        if($region) {
+            $message .= ($region) ? 'Регион: ' . $region . '<br>' : '';
         }
         //$mailheaders = "From: mail@mail.ru \r\n";/*Указываем почтовый от кого письмо если на бегете*/
 

@@ -88,6 +88,11 @@ input[type="button"] {
     padding-top: 60px;
     padding-bottom: 60px;
     /* font-family: Open Sans; */
+        max-width: 477px;
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 .popup p {
     color: #0c0c0c;

@@ -546,11 +546,16 @@
     font-size: 20px;
     font-family: 'Proxima Nova Rg';
     margin-bottom: 40px;
+    border-radius: 4px;
+    /* appearance: none; */
+}
+#region_move:focus-visible {
+    border: solid 1px #E0E7E9;
 }
 .label_region_move {
     display: block;
     position: absolute;
-    padding: 10px 25px;
+    padding: 10px 20px;
     font-size: 14px;
     color: #0000004D;
     font-family: 'Proxima Nova Rg';
@@ -572,6 +577,7 @@
     font-size: 20px;
     font-family: 'Proxima Nova Rg';
     margin-bottom: 40px;
+    border-radius: 4px;
 }
 #range_p {
     position: relative;
@@ -595,7 +601,7 @@ input[type=range]::-webkit-slider-thumb {
   box-shadow: 0 0 0 6px #ffffff;
 }
 
-#tickmarks {
+.tickmarks {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -613,10 +619,11 @@ input[type=range]::-webkit-slider-thumb {
 }
 .favorite_brand_block {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     width: 100%;
     margin-top: 20px;
     flex-wrap: wrap;
+    gap: 15px;
 }
 .brand_item, .service_item  {
     height: 115px;
@@ -624,7 +631,7 @@ input[type=range]::-webkit-slider-thumb {
     max-width: 86.25px;
     text-align: center;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .brand_item > .brand_item_img, .service_item > .service_item_img  {
     width: 86.25px;
@@ -634,7 +641,7 @@ input[type=range]::-webkit-slider-thumb {
     background: #F1F1F1;
 }
 .brand_item > span, .service_item > span {
-    margin-top: 15px;
+    margin-top: 10px;
     display: block;
     color: rgba(0, 0, 0, 0.5);
     font-family: 'Proxima Nova Rg';
@@ -662,12 +669,16 @@ input[type=range]::-webkit-slider-thumb {
 .service_item.active > .service_item_img > img, .service_item.active > .service_item_img {
     filter: grayscale(0%);
 }
+.clear_block {
+    display: block;
+    padding-bottom: 60px;
+}
 .favorite_brand {
     display: block;
     width: 100%;
     color: #000000;
     font-family: 'Proxima Nova Rg';
-    padding-top: 80px;
+    padding-top: 20px;
 }
 .favorite_brand > span {
     font-size: 20px;
@@ -792,7 +803,9 @@ input[type=range]::-webkit-slider-thumb {
     max-width: 527px;
     margin: 0 auto;
     text-align: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    gap: 15px;
 }
 .promo_item {
     display: block;
@@ -828,8 +841,11 @@ input[type=range]::-webkit-slider-thumb {
     color: rgba(0, 0, 0, 0.5);
     font-size: 14px;
     font-family: "Proxima Nova Rg";
-    margin-top: 20px;
+    margin: 15px auto;
     display: block;
+    line-height: 100%;
+    max-width: 80px;
+    text-align: center;
 }
 .promo_item.active > div {
     background: #ffdd21;

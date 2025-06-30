@@ -5,24 +5,41 @@
         $(document).on('click', '#region_move', function(e) {
             e.preventDefault();
             let value_region = $('#region_move option:selected').attr('data-val');
-            $('#range_p').val(value_region);
-            $("#current_range").html(value_region);
+            let id_scale = "tickmarks" + $('#region_move option:selected').attr('data-id');
+            $('#current_range').html('0 тонн');
+            $('#range_p').attr('max', value_region);
+            $('#range_p').attr('list', id_scale);
+            $('#range_p').val(0);
+            $('.tickmarks').hide();
+            $('#'+id_scale).show();
+            let selectedFuel = parseInt($('.selected_fuel').attr('data-val'));
+            if (selectedFuel > 0) {
+                calculeteTariff();
+            }
         });
         $(document).on('change', '#range_p', function(e) {
             e.preventDefault();
-            let val_range = $(this).val();
-            $("#region_move > option").each(function() {
-                if(parseInt($(this).attr('data-val')) == parseInt(val_range)) {
-                    $('#region_move option:selected').removeAttr('selected');
-                    console.log("true");
-                    $(this).attr('selected','selected');
-                }
-            });
+            let val_range = $(this).val() + " тонн";
             $("#current_range").html(val_range);
+            calculeteTariff();
         });
         $(document).on('click', '.fuel_block > span', function(e) {
             $(".fuel_block > span").removeClass('selected_fuel');
             $(this).addClass('selected_fuel');
+            let value_range = parseInt($('#range_p').val().match(/\d/g));
+            var brandsShow = $(this).attr('data-brands').split(',');
+            $(".brand_item").hide();
+            for (let i = 0; i < brandsShow.length; i++) {
+                $(".brand_item").each(function(key, val) {
+                    let brand = $(this).find('span').text().trim();
+                    if (brandsShow[i].trim() == brand) {
+                        $(this).show();
+                    }
+                })
+            }
+            if (value_range > 0) {
+                calculeteTariff();
+            }
         })
         $(document).on('click', '.brand_item ', function(e) {
             $(".brand_item").removeClass('active');
@@ -35,11 +52,92 @@
          $(document).on('click', '.promo_item ', function(e) {
             $(".promo_item").removeClass('active');
             $(this).addClass('active');
+            console.log(calculeteTariff());
         })
         $(document).on('click', '#agree', function(e) {
             $( this ).toggleClass( "active_checkbox");
         })
-        
+        let calculeteTariff = function() {
+            let selectedFuel = parseInt($('.selected_fuel').attr('data-val'));
+            let countFuel = parseInt($('#range_p').val());
+            let nameTariff= "Эконом";
+            let nameFuel = $('.selected_fuel').html();
+            let promo = [2, 5];
+            let tarifDiscount = 3;
+            if (selectedFuel == "" || isNaN(selectedFuel)) {
+                alert("Выберите тип топлива и бренд топлива!");
+                $('#current_range').html('0 тонн');
+                $('#range_p').val(0);
+                return false;
+            }
+            if (countFuel <= 100 && nameFuel === "Бензин" ) {
+                nameTariff = "Эконом";
+            }
+            if (countFuel >= 100 && countFuel < 300 && nameFuel === "Бензин") {
+                nameTariff = "Избранный";
+                promo = [5, 20];
+            }
+            if (countFuel >= 300 && nameFuel === "Бензин") {
+                nameTariff = "Премиум";
+                promo = [20, 50];
+                tarifDiscount = 7;
+            }
+            if (countFuel <= 200 && nameFuel === "Газ" ) {
+                nameTariff = "Эконом";
+            }
+            if (countFuel >= 200 && countFuel < 700 && nameFuel === "Газ") {
+                nameTariff = "Избранный";
+                promo = [5, 20];
+                tarifDiscount = 5;
+            }
+            if (countFuel >= 700 && nameFuel === "Газ") {
+                nameTariff = "Премиум";
+                promo = [20, 50];
+                tarifDiscount = 7;
+            }
+            if (countFuel <= 150 && nameFuel === "ДТ" ) {
+                nameTariff = "Эконом";
+            }
+            if (countFuel >= 350 && countFuel < 700 && nameFuel === "ДТ") {
+                nameTariff = "Избранный";
+                promo = [5, 20];
+                tarifDiscount = 5;
+            }
+            if (countFuel >= 350 && nameFuel === "ДТ") {
+                nameTariff = "Премиум";
+                promo = [20, 50];
+                tarifDiscount = 7;
+            }
+            $('.name_tariff').html(nameTariff);
+            $('.order_button_block > span > span').text('Заказать тариф «'+ nameTariff +"»");
+            $('.popup > h2').text('Заказать тариф «'+ nameTariff +"»");
+            $('#send__form').text('Заказать тариф «'+ nameTariff +"»");
+            $(".promo_item").hide();
+            $(".promo_item").each(function(key, val) {
+                if ( parseInt(promo[0]) == parseInt($(this).attr('data-val')) || parseInt(promo[1]) == parseInt($(this).attr('data-val'))) {
+                    $(this).show();
+                }
+            });
+            promo = isNaN(parseInt($(".promo_item.active").attr('data-val'))) ? 0 : parseInt($(".promo_item.active").attr('data-val'));
+            let percent = parseInt(tarifDiscount + promo);
+            let totalSumm = parseInt(selectedFuel * countFuel);
+            let summMinusPersent = totalSumm - parseInt(percent * totalSumm) /100;
+
+            let economInMonth = parseInt(percent * totalSumm) /100;
+            let economInYear =  parseInt(economInMonth) * parseInt(12);
+            if (economInMonth.toString().length >= 7 ) {
+                economInMonth = parseInt(economInMonth / 1000000) + " млн "
+            }
+            if (economInYear.toString().length >= 7 ) {
+                economInYear = parseInt(economInYear / 1000000) + " млн "
+            }
+            $('.text_after_promo_block_right_second > span:last-child').html("от " + economInYear + "₽");
+            $('.text_after_promo_block_right_third > span:last-child').html("от " + economInMonth + "₽");
+            $('#send__form').attr('data-percent', percent);
+            $('#send__form').attr('data-totalSumm', totalSumm);
+            $('#send__form').attr('data-summMinusPercent', summMinusPersent);
+            return (summMinusPersent);
+        }
         /*Отправка формы*/
         $(document).on('click', '#send__form, .order__form-button, .callback__form-button', function (e) {
             e.preventDefault();
@@ -51,6 +149,14 @@
             var name = $data.name;
             var email = $data.email;
             var phone = $data.phone;
+            var percent = $('#send__form').attr('data-percent');
+            var totalSumm = $('#send__form').attr('data-totalSumm');
+            var summMinusPersent = $('#send__form').attr('data-summMinusPercent');
+            var tarif = $('.name_tariff').text();
+            var countFuel = parseInt($('#range_p').val());
+            var selectedFuel = $('.selected_fuel').text();
+            var brandFuel = $('.brand_item.active > span').text(); 
+            var region = $('#region_move option:selected').text();
             $(id).find ('textarea').each(function() {
                 $data[this.name] = $(this).val();
             });
@@ -97,6 +203,14 @@
                 form_data.append('name', name);
                 form_data.append('email', email);
                 form_data.append('phone', phone);
+                form_data.append('percent', percent);
+                form_data.append('totalSumm', totalSumm);
+                form_data.append('summMinusPersent', summMinusPersent);
+                form_data.append('tarif', tarif);
+                form_data.append('countFuel', countFuel);
+                form_data.append('selectedFuel', selectedFuel);
+                form_data.append('brandFuel', brandFuel);
+                form_data.append('region', region);
                 $.ajax({
                     url: myajax.url,
                     type: 'post',

@@ -13,7 +13,7 @@ $logo = fw_get_db_customizer_option()['img_logo']['url'];
 $logo_text = fw_get_db_customizer_option()['img_text'];
 ?>
 <footer id="colophon" class="site-footer">
-    <section class="footer_d">
+    <section class="footer_d" style="display:none;">
         <div class="container">
             <div class="block_logo footer_logo">
                 <div class="up_head_left_logo">
@@ -48,7 +48,7 @@ $logo_text = fw_get_db_customizer_option()['img_text'];
     <div class="popup__overlay modal">
         <div class="popup">
             <div class="popup__close">X</div>
-            <h2>Заказать тариф «Избранный»</h2>
+            <h2>Заказать тариф «Эконом»</h2>
             <!-- <p>Оставьте ваш телефон и с Вами свяжутся в ближайшее время!</p> -->
             <form id="send_call_back">
                 <input name="name" type="number" placeholder="Номер ИНН">
@@ -61,7 +61,7 @@ $logo_text = fw_get_db_customizer_option()['img_text'];
                     </div>
                 </div>
                 <div class="form-button">
-                    <button id="send__form" class="green_button" data-form="send_call_back" type="submit">Заказать тариф «Избранный»</button>
+                    <button id="send__form" class="green_button" data-form="send_call_back" type="submit">Заказать тариф «Эконом»</button>
                 </div>
                 <span class="form_error"></span>
                 <span class="form_agree_message"></span>
