@@ -191,6 +191,14 @@ input[type="checkbox"]::after {
     font-size: 20px;
     font-weight: 600;
 }
+.popup_error {
+    color: #FF0000;
+    display: block;
+    margin-top: 20px;
+    font-family: "Proxima Nova Rg";
+    font-size: 25px;
+    font-weight: 600;
+}
 .form_agree_message {
     color: #008000;
     display: block;
@@ -198,6 +206,9 @@ input[type="checkbox"]::after {
     font-family: "Proxima Nova Rg";
     font-size: 20px;
     font-weight: 600;
+}
+.popup__overlay.modal_success > .popup {
+    height: auto;
 }
 @media screen and (min-width:200px) and (max-width:1024px) {
     .popup h2 {

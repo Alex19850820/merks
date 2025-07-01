@@ -23,6 +23,8 @@
             $("#current_range").html(val_range);
             calculeteTariff();
         });
+        /*end*/
+        /*Выбор топлива*/
         $(document).on('click', '.fuel_block > span', function(e) {
             $(".fuel_block > span").removeClass('selected_fuel');
             $(this).addClass('selected_fuel');
@@ -40,23 +42,14 @@
             if (value_range > 0) {
                 calculeteTariff();
             }
-        })
-        $(document).on('click', '.brand_item ', function(e) {
-            $(".brand_item").removeClass('active');
-            $(this).addClass('active');
         });
-         $(document).on('click', '.service_item ', function(e) {
-            $(".service_item").removeClass('active');
-            $(this).addClass('active');
-        });
-         $(document).on('click', '.promo_item ', function(e) {
-            $(".promo_item").removeClass('active');
-            $(this).addClass('active');
-            console.log(calculeteTariff());
-        })
+        /*end*/
+        /*Чекбокс согласия на обработку данных*/
         $(document).on('click', '#agree', function(e) {
             $( this ).toggleClass( "active_checkbox");
         })
+        /*end*/ 
+        /*Калькулятор подсчета тарифа и всех входных данных*/
         let calculeteTariff = function() {
             let selectedFuel = parseInt($('.selected_fuel').attr('data-val'));
             let countFuel = parseInt($('#range_p').val());
@@ -64,8 +57,18 @@
             let nameFuel = $('.selected_fuel').html();
             let promo = [2, 5];
             let tarifDiscount = 3;
+            let errorMessagePopupShow = function(selector, message) {
+                $(selector).show();
+                $('.popup_error').html("*Ошибка! " + message);
+            };
             if (selectedFuel == "" || isNaN(selectedFuel)) {
-                alert("Выберите тип топлива и бренд топлива!");
+                errorMessagePopupShow('.modal_success', "Выберите тип топлива и бренд топлива!");
+                $('#current_range').html('0 тонн');
+                $('#range_p').val(0);
+                return false;
+            }
+            if (!$('.brand_item').hasClass('active')) {
+                errorMessagePopupShow('.modal_success', "Выберите бренд топлива!");
                 $('#current_range').html('0 тонн');
                 $('#range_p').val(0);
                 return false;
@@ -137,7 +140,18 @@
             $('#send__form').attr('data-totalSumm', totalSumm);
             $('#send__form').attr('data-summMinusPercent', summMinusPersent);
             return (summMinusPersent);
-        }
+        };
+        /*end*/ 
+        let elementTogglerClass = function(selector, className) {
+            $(document).on('click', selector, function(e) {
+                $(selector).removeClass(className);
+                $(this).addClass(className);
+                calculeteTariff();
+            });
+        };
+        elementTogglerClass('.brand_item','active');
+        elementTogglerClass('.service_item','active');
+        elementTogglerClass('.promo_item','active');
         /*Отправка формы*/
         $(document).on('click', '#send__form, .order__form-button, .callback__form-button', function (e) {
             e.preventDefault();

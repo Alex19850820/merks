@@ -73,8 +73,8 @@ $logo_text = fw_get_db_customizer_option()['img_text'];
     <div class="popup__overlay modal_success">
         <div class="popup">
             <div class="popup__close">X</div>
-            <h2>Поздравляем</h2>
-            <p>Ваша заявка отправлена с Вами свяжутся в ближайшее время!</p>
+            <span class="popup_error"></span>
+            <!-- <p>Ваша заявка отправлена с Вами свяжутся в ближайшее время!</p> -->
         </div>
         <!--[if lt IE 9]>
         <div class="popup__valignfix"></div><![endif]-->
